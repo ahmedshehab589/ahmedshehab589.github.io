@@ -1,0 +1,6 @@
+<html>
+  <head>xss</head>
+  <body>
+    <script>window.parent.location.href=//google.com</script>
+    </body>
+</html>
