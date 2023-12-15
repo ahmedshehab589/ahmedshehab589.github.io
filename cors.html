@@ -12,6 +12,7 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://ctm.dell.com/CTMService/ctm-user-management-service/v2/userInfo', true);
         xhr.setRequestHeader('Origin', 'https://fake.site/dell.com');
+        xhttp.withCredentials = true;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 // Handle the response as needed
